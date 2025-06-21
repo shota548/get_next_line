@@ -6,7 +6,7 @@
 /*   By: showatan <showatan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 19:20:11 by showatan          #+#    #+#             */
-/*   Updated: 2025/06/15 19:20:11 by showatan         ###   ########.fr       */
+/*   Updated: 2025/06/21 18:09:49 by showatan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,25 @@ char    *get_next_line(int fd)
 
 }
 
-find_newline(int fd, char **line, char **st_arr, char *buf) 
+find_newline(int fd, char **line, char **st_arr, char *buf)
 {
+	int	len;
+
+	while (buf != 0)
+	{
+		len = ft_strchr_len(buf);
+		ft_strnjoin(buf, line);
+	}
+	free
 
 }
 
 read_fd(int fd, char **line, char **st_arr)
 {
-    
+
 }
 
 int    free_all(char **line, char **st_arr, int fd)
 {
-    
+
 }
