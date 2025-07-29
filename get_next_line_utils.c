@@ -6,38 +6,11 @@
 /*   By: showatan <showatan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 19:18:55 by showatan          #+#    #+#             */
-/*   Updated: 2025/06/21 18:07:26 by showatan         ###   ########.fr       */
+/*   Updated: 2025/07/29 15:24:36 by showatan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-// ↓callocにつかうだけだからなくてもいい
-void	ft_bzero(void *b, size_t len)
-{
-	unsigned char	*p;
-
-	p = (unsigned char *)b;
-	while (len-- > 0)
-		*p++ = 0;
-	return ;
-}
-void *ft_calloc(size_t count, size_t size)
-{
-	unsigned char	*tmp;
-	size_t			idx;
-
-	if (size != 0 && count > __SIZE_MAX__ / size)
-		return (NULL);
-	tmp = malloc(count * size);
-	if (tmp != NULL)
-	{
-		idx = 0;
-		while (idx < (count * size))
-			tmp[idx++] = 0;
-	}
-	return (tmp);
-}
 
 size_t	ft_strlen(const char *s)
 {
@@ -52,9 +25,9 @@ size_t	ft_strlen(const char *s)
 	return (count);
 }
 
-size_t	ft_strchr_len(const char *s, int search_c )
+int	ft_strchr_len(const char *s, int search_c )
 {
-	size_t	len;
+	int	len;
 
 	len = 0;
 	while (*s != '\0')
@@ -64,32 +37,51 @@ size_t	ft_strchr_len(const char *s, int search_c )
 		s++;
 		len++;
 	}
-	return (len);
+	return (-1);
 }
 
-char	*ft_strnjoin(char const *s1, char const *s2, int len)
+void	*ft_memcpy(void *dst, const void *src, size_t len)
 {
-	char	*str;
-	int		idx;
+	unsigned char	*uc_src;
+	unsigned char	*uc_dst;
 
-	if (s1 == NULL || s2 == NULL)
+	if (dst == NULL && src == NULL)
 		return (NULL);
-	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (str == NULL)
+	uc_src = (unsigned char *)src;
+	uc_dst = (unsigned char *)dst;
+	while (len-- > 0)
+		*uc_dst++ = *uc_src++;
+	return (dst);
+}
+
+char	*ft_strdnup(const char *s1, int n)
+{
+	char	*copy;
+
+	copy = (char *)malloc(n + 1);
+	if (copy == NULL)
 		return (NULL);
-	idx = 0;
-	while (s1[idx] != '\0', len > 0)
-	{
-		str[idx] = s1[idx];
-		idx++;
-		len--;
-	}
-	while (s2[idx - ft_strlen(s1)] != '\0', len > 0)
-	{
-		str[idx] = s2[idx - ft_strlen(s1)];
-		idx++;
-		len--;
-	}
-	str[idx] = '\0';
-	return (str);
+	ft_memcpy(copy, s1, n);
+	copy[n] = '\0';
+	return (copy);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*joined_str;
+	size_t	len1;
+	size_t	len2;
+
+	if (!s1 || !s2)
+		return (NULL);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	joined_str = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+	if (joined_str == NULL)
+		return (NULL);
+	ft_memcpy(joined_str, s1, len1);
+	ft_memcpy(joined_str + len1, s2, len2 + 1);
+	free((void *)s1);
+	free((void *)s2);
+	return (joined_str);
 }
