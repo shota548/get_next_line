@@ -29,6 +29,8 @@ int	ft_strchr_len(const char *s, int search_c )
 {
 	int	len;
 
+	if (s = NULL)
+		return(-1);
 	len = 0;
 	while (*s != '\0')
 	{
